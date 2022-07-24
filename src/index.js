@@ -11,7 +11,7 @@ const loadMoreBtnEl = document.querySelector('.load-more');
 
 searchFormEl.addEventListener('submit', onSearchFormSubmt);
 
-const libraryLightBox = new SimpleLightbox('.gallery', {
+const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
 });
@@ -47,7 +47,7 @@ async function onSearchFormSubmt(event) {
 function renderCards(data) {
   const card = galleryCard(data);
   galleryEl.insertAdjacentHTML('beforeend', card);
-  libraryLightBox.refresh();
+  lightbox.refresh();
 }
 
 function smoothScroll() {
