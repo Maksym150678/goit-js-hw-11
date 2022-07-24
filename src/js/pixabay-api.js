@@ -10,7 +10,7 @@ constructor() {
     this.dataPerPage = 40;
     this.totalHits = null;
 };
-  async pixabayApi() {
+  async fetchPhotosByQuery() {
     const searchParam = new URLSearchParams({
       image_type: this.photo,
       orientation: this.horizontal,
