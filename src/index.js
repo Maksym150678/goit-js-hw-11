@@ -1,7 +1,9 @@
 import Notiflix from 'notiflix';
 import SimpleLightbox from "simplelightbox";
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import { PixabayApi } from './js/pixabay-api';
 import galleryCard from './templates/gallery-card.hbs';
+
 const searchFormEl = document.querySelector('.search-form');
 const galleryEl = document.querySelector('.gallery');
 const pixabayApi = new PixabayApi();
@@ -21,8 +23,6 @@ async function onSearchFormSubmt(event) {
     loadMoreBtnEl.classList.add('is-hidden');
 
     pixabayApi.resetPage();
-
-
 
     try {
         pixabayApi.searchQuery = event.currentTarget.elements.searchQuery.value;
@@ -49,7 +49,7 @@ function renderCards(data) {
   galleryEl.insertAdjacentHTML('beforeend', card);
   libraryLightBox.refresh();
 }
-//создаем функцию плавного скролла
+
 function smoothScroll() {
   const { height: cardHeight } = document
     .querySelector('.gallery')
@@ -62,20 +62,20 @@ function smoothScroll() {
 }
 
 loadMoreBtnEl.addEventListener('click', onClickLoadMore);
-// //Создаем асинхронную функцию по событию click
+
 async function onClickLoadMore(event) {
    try {
-     //если условие метода равно false, то выводим сообщениео том, что картинок для подзагрузки уже нет
+    
     if (!pixabayApi.isNextDataExsist()) {
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results"
       );
-      //прячем кнопку
+      
       loadMoreBtnEl.classList.add('is-hidden');
       return;
     }
        const response = await pixabayApi.fetchPhotosByQuery();
-       //рендерим картинки
+       
        smoothScroll();
        renderCards(response.data.hits);
        console.log(pixabayApi);
